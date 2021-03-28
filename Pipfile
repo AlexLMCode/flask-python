@@ -6,9 +6,9 @@ name = "pypi"
 [packages]
 flask = "*"
 flask-script = "*"
-flask-bootstrap4 = "*"
 wtforms = "*"
 flask-wtf = "*"
+flask-bootstrap4 = "*"
 
 [dev-packages]
 
