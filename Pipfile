@@ -9,6 +9,10 @@ flask-script = "*"
 wtforms = "*"
 flask-wtf = "*"
 flask-bootstrap4 = "*"
+flask-sqlalchemy = "*"
+mysqlclient = "*"
+email-validator = "*"
+werkzeug = "*"
 
 [dev-packages]
 

@@ -4,6 +4,7 @@ class Config:
 
 class DevelopmentConfig(Config):
     DEBUG = True
+    SQLALCHEMY_DATABASE_URI = 'mysql://root:Gooda2412@localhost/project_web_facilito'
 
 
 config = {
