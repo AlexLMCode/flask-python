@@ -1,9 +1,10 @@
 import datetime
-from werkzeug.security import generate_password_hash
+from flask_login import UserMixin
+from werkzeug.security import generate_password_hash, check_password_hash
 from . import db
 
 
-class User(db.Model):
+class User(db.Model, UserMixin):
     __tablename__ = 'users'
 
     id = db.Column(db.Integer, primary_key=True)
@@ -23,6 +24,9 @@ class User(db.Model):
     def __str__(self):
         return self.username
 
+    def verify_password(self, password):
+        return check_password_hash(pwhash=self.encrypted_password, password=password)
+
     @classmethod
     def create_element(cls, username, password, email):
         user = User(username=username, password=password, email=email)
@@ -39,3 +43,7 @@ class User(db.Model):
     @classmethod
     def get_by_email(cls, email):
         return User.query.filter_by(email=email).first()
+
+    @classmethod
+    def get_by_id(cls, id):
+        return User.query.filter_by(id=id).first()

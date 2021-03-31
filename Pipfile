@@ -13,6 +13,7 @@ flask-sqlalchemy = "*"
 mysqlclient = "*"
 email-validator = "*"
 werkzeug = "*"
+flask-login = "*"
 
 [dev-packages]
 
