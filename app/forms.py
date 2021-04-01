@@ -1,4 +1,4 @@
-from wtforms import Form, StringField, PasswordField, BooleanField, HiddenField
+from wtforms import Form, StringField, PasswordField, BooleanField, HiddenField, TextAreaField
 from wtforms import validators
 from wtforms.fields.html5 import EmailField
 from .models import User
@@ -66,3 +66,13 @@ class RegisterForm(Form):
             return False
 
         return True
+
+
+class TaskForm(Form):
+    title = StringField('Titulo', validators=[
+        validators.length(min=4, max=50, message='Titulo fuera de rango'),
+        validators.data_required(message='El titulo es requerido')
+    ])
+    description = TextAreaField('Descripcion', validators=[
+        validators.data_required(message='La descripcion es requerida')
+    ], render_kw={'rows': 5})

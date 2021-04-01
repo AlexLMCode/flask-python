@@ -12,6 +12,7 @@ class User(db.Model, UserMixin):
     encrypted_password = db.Column(db.String(94), nullable=False)
     email = db.Column(db.String(100), unique=True, nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.datetime.now())
+    tasks = db.relationship('Task', lazy='dynamic')
 
     @property
     def password(self):
@@ -47,3 +48,59 @@ class User(db.Model, UserMixin):
     @classmethod
     def get_by_id(cls, id):
         return User.query.filter_by(id=id).first()
+
+
+class Task(db.Model):
+    __tablename__ = 'tasks'
+
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(50))
+    description = db.Column(db.Text())
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    created_at = db.Column(db.DateTime, default=datetime.datetime.now())
+
+    @property
+    def little_description(self):
+        if len(self.description) > 25:
+            return self.description[0:20] + "..."
+        else:
+            return self.description
+
+    @classmethod
+    def create_element(cls, title, description, user_id):
+        task = Task(title=title, description=description, user_id=user_id)
+
+        db.session.add(task)
+        db.session.commit()
+
+        return task
+
+    @classmethod
+    def get_by_id(cls, id):
+        return Task.query.filter_by(id=id).first()
+
+    @classmethod
+    def update_element(cls, id, title, description):
+        task = Task.get_by_id(id)
+
+        if task is None:
+            return False
+        else:
+            task.title = title
+            task.description = description
+
+        db.session.add(task)
+        db.session.commit()
+        return task
+
+    @classmethod
+    def delelte_element(cls, id):
+        task = Task.get_by_id(id)
+
+        if task is None:
+            return False
+        else:
+            db.session.delete(task)
+            db.session.commit()
+
+        return True
