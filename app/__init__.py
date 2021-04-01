@@ -1,4 +1,5 @@
 from flask import Flask
+from flask_mail import Mail
 from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf.csrf import CSRFProtect
@@ -6,6 +7,7 @@ from flask_bootstrap import Bootstrap
 
 app = Flask(__name__)
 
+mail = Mail()
 db = SQLAlchemy()
 csrf = CSRFProtect()
 bootstrap = Bootstrap()
@@ -25,6 +27,8 @@ def create_app(config):
 
     if not app.config.get('TEST', False):
         bootstrap.init_app(app)
+
+    mail.init_app(app)
 
     app.register_blueprint(page)
 

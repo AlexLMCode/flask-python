@@ -5,6 +5,7 @@ from flask_login import login_user, logout_user, login_required, current_user
 from .forms import LoginForm, RegisterForm, TaskForm
 from .consts import *
 from .models import User, Task
+from .email import welcome_mail
 from . import login_manager
 
 page = Blueprint('page', __name__)
@@ -63,6 +64,7 @@ def register():
             user = User.create_element(form.username.data, form.password.data, form.email.data)
             flash(USER_CREATED)
             login_user(user)
+            welcome_mail(user)
             return redirect(url_for('.tasks'))
 
     return render_template('auth/register.html', title='Registro',
