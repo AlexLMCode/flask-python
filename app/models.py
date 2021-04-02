@@ -16,7 +16,7 @@ class User(db.Model, UserMixin):
 
     @property
     def password(self):
-        pass
+        raise Exception('No se puede cruck')
 
     @password.setter
     def password(self, value):
@@ -58,6 +58,7 @@ class Task(db.Model):
     description = db.Column(db.Text())
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     created_at = db.Column(db.DateTime, default=datetime.datetime.now())
+    updated_at = db.Column(db.DateTime)
 
     @property
     def little_description(self):

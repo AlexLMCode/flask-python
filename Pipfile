@@ -16,6 +16,7 @@ werkzeug = "*"
 flask-login = "*"
 flask-mail = "*"
 python-decouple = "*"
+flask-migrate = "*"
 
 [dev-packages]
 

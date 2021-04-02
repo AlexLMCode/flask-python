@@ -14,7 +14,7 @@ bootstrap = Bootstrap()
 login_manager = LoginManager()
 
 from .views import page
-from .models import User
+from .models import User, Task
 from .consts import LOGIN_REQUIRED
 
 
@@ -27,6 +27,8 @@ def create_app(config):
 
     if not app.config.get('TEST', False):
         bootstrap.init_app(app)
+
+    app.app_context().push()
 
     mail.init_app(app)
 

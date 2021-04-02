@@ -17,7 +17,14 @@ class DevelopmentConfig(Config):
     MAIL_PASSWORD = config('MAIL_PASSWORD')  # MAIL_PASSWORD
 
 
+class TestConfig(Config):
+    DEBUG = True
+    SQLALCHEMY_DATABASE_URI = 'mysql://root:@localhost/project_web_facilito_test'
+    TEST = True
+
+
 config = {
     'development': DevelopmentConfig,
-    'default': DevelopmentConfig
+    'default': DevelopmentConfig,
+    'test': TestConfig
 }
